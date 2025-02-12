@@ -17,14 +17,14 @@
 
 int main() {
     stdio_init_all();
-
+//configura o led azul como pwm 
     gpio_set_function(LED, GPIO_FUNC_PWM);
     uint slice_led = pwm_gpio_to_slice_num(LED);
     pwm_set_clkdiv(slice_led, DIV);
     pwm_set_wrap(slice_led, WRAP);
     pwm_set_enabled(slice_led, true);
     pwm_set_gpio_level(LED, DUTY_0);
-
+//configura o servo como pwm
     gpio_set_function(GPIOSERV, GPIO_FUNC_PWM);
     uint slice = pwm_gpio_to_slice_num(GPIOSERV);
     pwm_set_clkdiv(slice, DIV);
@@ -32,20 +32,21 @@ int main() {
     pwm_set_enabled(slice, true);
     pwm_set_gpio_level(GPIOSERV, DUTY_0);
     sleep_ms(1000);
-
+//põe o servo em 180 graus 
     pwm_set_gpio_level(GPIOSERV, DUTY_180);
     pwm_set_gpio_level(LED, DUTY_180);
     sleep_ms(5000);
-
+//poe o servo em 90 graus
     pwm_set_gpio_level(GPIOSERV, DUTY_90);
     pwm_set_gpio_level(LED, DUTY_90);
     sleep_ms(5000);
-
+//põe o servo em 0
     pwm_set_gpio_level(GPIOSERV, DUTY_0);
     pwm_set_gpio_level(LED, DUTY_0);
     sleep_ms(5000);
 
     while (1) {
+        //loop
         // Movimento progressivo do servo de 0 a 180 graus
         for (int i = DUTY_0; i <= DUTY_180; i += ADDING) {
             pwm_set_gpio_level(GPIOSERV, i);
