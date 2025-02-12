@@ -46,12 +46,16 @@ pico_enable_stdio_usb(picoPWM 1)
 
 # Add the standard library to the build
 target_link_libraries(picoPWM
-        pico_stdlib)
+        pico_stdlib
+        )
 
 # Add the standard include files to the build
 target_include_directories(picoPWM PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
-
+target_link_libraries(picoPWM
+        hardware_pwm
+        hardware_clocks
+        )
 pico_add_extra_outputs(picoPWM)
 
